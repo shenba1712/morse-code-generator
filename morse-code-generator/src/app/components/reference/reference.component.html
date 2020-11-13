@@ -1,0 +1,59 @@
+<div class="min-height container-fluid">
+  <h1 class="text-center pb-3">Morse Code Reference</h1>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Alphabets">
+      <div class="row pt-3">
+        <div class="p-1 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="row text-center" *ngFor="let key of alphabetPagedList">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <h3>{{key}}</h3>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <h1 style="font-weight: bold">{{convertCode(alphabetCode[key])}}</h1>
+            </div>
+          </div>
+          <mat-paginator [length]="alphabetKeys?.length"
+                         [pageSize]="10"
+                         [pageSizeOptions]="[5, 10, 15]"
+                         (page)="pageAlphabetEvent($event)"
+                         [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Numbers">
+      <div class="row pt-3">
+        <div class="p-1 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="row text-center" *ngFor="let key of numberKeys">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <h3>{{showKey(key)}}</h3>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <h1 style="font-weight: bold">{{convertCode(numberCode[key])}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Special Characters">
+      <div class="row pt-3">
+      <div class="p-1 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="row text-center" *ngFor="let key of splCharPagedList">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <h3>{{format(key)}} [ {{showKey(key)}} ]</h3>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <h1 style="font-weight: bold">{{convertCode(splCharCode[key])}}</h1>
+          </div>
+        </div>
+        <mat-paginator [length]="splCharKeys?.length"
+                       [pageSize]="5"
+                       [pageSizeOptions]="[5, 10]"
+                       (page)="pageSplCharEvent($event)"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+    </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

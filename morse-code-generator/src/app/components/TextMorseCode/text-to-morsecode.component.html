@@ -1,0 +1,50 @@
+<div class="container-fluid mt-3">
+
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="card mb-4">
+        <h3 class="card-header">Text In English</h3>
+        <div class="card-body">
+          <mat-form-field class="mb-4" appearance="outline">
+            <textarea rows="7" matInput [(ngModel)]="searchText" (keyup)="generateMorseCode($event)"
+                [ngModelOptions]="{standalone: true}"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1" style="display: flex; align-items: center;">
+      <fa-icon [icon]="arrowIcon" size="4x"></fa-icon>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <h3 class="card-header">Morse Code</h3>
+        <div class="card-body">
+          <h2 #code class="card-text"><pre>{{morsecode}}</pre></h2>
+        </div>
+        <div class="card-body" *ngIf="!!morsecode">
+          <button class="float-right ml-1 btn" (click)="playMorseText()">
+            <fa-icon size="2x" [icon]="play" style="color: black !important;"></fa-icon>
+          </button>
+          <button class="float-right ml-1 btn" (click)="pauseResumeAudio()">
+            <fa-icon size="2x" [icon]="pause" style="color: black !important;"></fa-icon>
+          </button>
+          <button class="float-right btn" (click)="stopAudio()">
+            <fa-icon size="2x" [icon]="stop" style="color: black !important;"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <app-reference></app-reference>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,20 @@
+<mat-toolbar class="bg-purple">
+  <span style="cursor: pointer">
+    <a routerLink="">
+      <fa-icon [icon]="tower"></fa-icon> Morse Code Generator
+    </a></span>
+  <span class="fill-space"></span>
+  <div class="dropdown dropleft">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Menu
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" routerLink="/text-to-morsecode">Text to Morse Code</a>
+      <a class="dropdown-item" routerLink="/morsecode-to-text">Morse Code to Text</a>
+    </div>
+  </div>
+</mat-toolbar>
+<div class="content" role="main">
+  <router-outlet></router-outlet>
+</div>

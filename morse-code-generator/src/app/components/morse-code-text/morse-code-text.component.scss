@@ -1,0 +1,21 @@
+mat-form-field {
+  width: 100%;
+}
+
+textarea {
+  font-size: large;
+  font-weight: bold;
+}
+
+.card {
+  height: 350px;
+  width: 100%;
+  overflow-y: scroll !important;
+  pre {
+    white-space: pre-wrap;
+  }
+}
+
+fa-icon {
+  color: white;
+}
