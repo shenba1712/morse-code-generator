@@ -4,6 +4,11 @@
     <div class="col-sm-6">
       <div class="card mb-4">
         <h3 class="card-header">Morse Code</h3>
+        <h4 class="card-subtitle pl-3">
+          Separate every morse code char with space and separate words with ' / ' (/ with spaces on both sides)
+          <br>
+          Eg: Hello ! -> .... . .-.. .-.. --- / -.-.--
+        </h4>
         <div class="card-body">
           <mat-form-field class="mb-4" appearance="outline">
             <textarea rows="7" matInput [(ngModel)]="morseCode" (keyup)="generateText($event)"
