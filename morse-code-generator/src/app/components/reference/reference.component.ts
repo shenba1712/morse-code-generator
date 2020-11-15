@@ -97,7 +97,7 @@ export class ReferenceComponent {
   }
 
   stopAudio(index) {
-    if (!!this.audioContexts) {
+    if (!!this.audioContexts[index]) {
       if (this.audioContexts[index].state !== 'closed') {
         this.audioContexts[index].close().then(() => {
           this.audioContexts[index] = undefined;

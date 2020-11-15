@@ -20,8 +20,9 @@
       </div>
     </div>
     <ng-container *ngIf="text?.length > 0">
-      <div class="col-sm-1" style="display: flex; align-items: center;">
-        <fa-icon [icon]="arrowIcon" size="4x"></fa-icon>
+      <div class="col-sm-1" [ngStyle]="!isMobile() ? {'display': 'flex', 'align-items': 'center'} :
+       {'display': 'flex', 'justify-content': 'center'}">
+        <fa-icon [icon]="isMobile() ? arrowDownIcon : arrowRightIcon" size="4x"></fa-icon>
       </div>
       <div class="col-sm-5">
         <div class="card">
@@ -34,7 +35,7 @@
     </ng-container>
   </div>
 
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
@@ -43,7 +44,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 

@@ -3,7 +3,7 @@ import {Alphabets} from '../../domain/alphabets.enum';
 import {Numbers} from '../../domain/numbers.enum';
 import {Characters} from '../../domain/characters.enum';
 import {SpecialChar} from '../../domain/special-char.enum';
-import {faArrowRight, faPauseCircle, faPlayCircle, faStopCircle} from '@fortawesome/free-solid-svg-icons';
+import {faArrowDown, faArrowRight, faPauseCircle, faPlayCircle, faStopCircle} from '@fortawesome/free-solid-svg-icons';
 import {ConversionHistory} from '../../domain/history';
 
 @Component({
@@ -18,7 +18,8 @@ export class TextToMorsecodeComponent implements OnInit {
   storage: ConversionHistory[];
 
   // icons
-  arrowIcon = faArrowRight;
+  arrowRightIcon = faArrowRight;
+  arrowDownIcon = faArrowDown;
   play = faPlayCircle;
   pause = faPauseCircle;
   stop = faStopCircle;
@@ -157,6 +158,10 @@ export class TextToMorsecodeComponent implements OnInit {
       time += this.dot;
     }
     return time;
+  }
+
+  isMobile() {
+    return window.matchMedia('(max-width: 487px)').matches;
   }
 
 }

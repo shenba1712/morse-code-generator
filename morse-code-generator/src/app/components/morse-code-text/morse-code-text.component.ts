@@ -3,7 +3,7 @@ import {Numbers} from '../../domain/numbers.enum';
 import {Characters} from '../../domain/characters.enum';
 import {Alphabets} from '../../domain/alphabets.enum';
 import {SpecialChar} from '../../domain/special-char.enum';
-import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import {faArrowDown, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import {ConversionHistory} from '../../domain/history';
 
 @Component({
@@ -15,7 +15,8 @@ export class MorseCodeTextComponent implements OnInit {
 
   morseCode: string;
   text: string;
-  arrowIcon = faArrowRight;
+  arrowRightIcon = faArrowRight;
+  arrowDownIcon = faArrowDown;
 
   storage: ConversionHistory[];
 
@@ -84,6 +85,10 @@ export class MorseCodeTextComponent implements OnInit {
 
   private isLetter(c) {
     return c.toLowerCase() !== c.toUpperCase();
+  }
+
+  isMobile() {
+    return window.matchMedia('(max-width: 487px)').matches;
   }
 
 
