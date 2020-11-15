@@ -58,12 +58,25 @@
     <mat-tab label="History" *ngIf="history?.length > 0">
       <div class="row pt-3">
         <div class="p-1 col-md-12 col-lg-12 col-sm-12 col-xs-12">
-          <div class="row text-center" *ngFor="let key of history">
-            <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="row text-center" *ngFor="let key of history; let i = index">
+            <div class="col-lg-4 col-md-4 col-sm-4">
               <h3>{{key.key}}</h3>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-4">
               <h1 style="font-weight: bold">{{key.value}}</h1>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <ng-container>
+                <button class="mr-1 btn" (click)="playMorseText(i, key.value)">
+                  <fa-icon [icon]="play" style="color: black !important;"></fa-icon>
+                </button>
+                <button class="mr-1 btn" (click)="pauseResumeAudio(i)">
+                  <fa-icon [icon]="pause" style="color: black !important;"></fa-icon>
+                </button>
+                <button class="btn" (click)="stopAudio(i)">
+                  <fa-icon [icon]="stop" style="color: black !important;"></fa-icon>
+                </button>
+              </ng-container>
             </div>
           </div>
         </div>
