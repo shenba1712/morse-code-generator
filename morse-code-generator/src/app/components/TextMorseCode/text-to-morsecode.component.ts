@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Alphabets} from '../../domain/alphabets.enum';
 import {Numbers} from '../../domain/numbers.enum';
 import {Characters} from '../../domain/characters.enum';
 import {SpecialChar} from '../../domain/special-char.enum';
 import {faArrowRight, faPauseCircle, faPlayCircle, faStopCircle} from '@fortawesome/free-solid-svg-icons';
+import {ConversionHistory} from '../../domain/history';
 
 @Component({
   selector: 'app-text-morse-code',
   templateUrl: './text-to-morsecode.component.html',
   styleUrls: ['./text-to-morsecode.component.scss']
 })
-export class TextToMorsecodeComponent {
+export class TextToMorsecodeComponent implements OnInit {
+
   searchText: string;
   morsecode: string;
+  storage: ConversionHistory[];
+
   // icons
   arrowIcon = faArrowRight;
   play = faPlayCircle;
@@ -27,7 +31,24 @@ export class TextToMorsecodeComponent {
 
   constructor() { }
 
-  generateMorseCode(event) {
+  ngOnInit() {
+    const jsonObject = JSON.parse(localStorage.getItem('text-to-morseCode'));
+    if (!!jsonObject) {
+      this.storage = Object.entries(jsonObject).map(entry => {
+        const entryValue = entry[1] as ConversionHistory;
+        return {
+          key: entryValue.key,
+          value: entryValue.value
+        };
+      });
+    }
+
+    if (!this.storage) {
+      this.storage = [];
+    }
+  }
+
+  generateMorseCode() {
       this.morsecode = '';
       const text = this.searchText.trim().toUpperCase();
       const charArray = [...text];
@@ -43,15 +64,23 @@ export class TextToMorsecodeComponent {
           this.morsecode += '/ ';
         } else {
           const key = Object.keys(SpecialChar).find(n => Characters[n] === char);
-          if (SpecialChar[key] === undefined) {
-            if (event.key === 'Enter') {
-              this.morsecode += '\n';
-            }
-          } else {
+          if (SpecialChar[key] !== undefined) {
             this.morsecode += SpecialChar[key] + ' ';
           }
         }
       });
+      this.saveToStorage();
+  }
+
+  private saveToStorage() {
+    if (this.storage.length > 10) {
+      this.storage.splice(0, 1);
+    }
+    this.storage.push({
+      key: this.searchText.toUpperCase(),
+      value: this.morsecode
+    });
+    localStorage.setItem('text-to-morseCode', JSON.stringify(this.storage));
   }
 
   private isLetter(c) {

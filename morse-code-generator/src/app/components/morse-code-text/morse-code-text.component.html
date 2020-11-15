@@ -1,7 +1,7 @@
 <div class="container-fluid mt-3">
 
   <div class="row">
-    <div class="col-sm-6">
+    <div [ngClass]="!text || text?.length < 0 ? 'col-sm-12' : 'col-sm-6' ">
       <div class="card mb-4">
         <h3 class="card-header">Morse Code</h3>
         <h4 class="card-subtitle pl-3">
@@ -10,31 +10,35 @@
           Eg: Hello ! -> .... . .-.. .-.. --- / -.-.--
         </h4>
         <div class="card-body">
-          <mat-form-field class="mb-4" appearance="outline">
-            <textarea rows="7" matInput [(ngModel)]="morseCode" (keyup)="generateText($event)"
-                [ngModelOptions]="{standalone: true}"></textarea>
+          <mat-form-field style="margin-bottom: 0 !important;" class="mb-4" appearance="outline">
+            <textarea [attr.rows]="!text || text?.length < 0 ? 5 : 4" matInput [(ngModel)]="morseCode" [ngModelOptions]="{standalone: true}"></textarea>
           </mat-form-field>
+          <div class="float-right">
+            <button type="button" class="btn" (click)="generateText()">Convert</button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-1" style="display: flex; align-items: center;">
-      <fa-icon [icon]="arrowIcon" size="4x"></fa-icon>
-    </div>
-    <div class="col-sm-5">
-      <div class="card">
-        <h3 class="card-header">Text</h3>
-        <div class="card-body">
-          <h2 class="card-text"><pre>{{text}}</pre></h2>
+    <ng-container *ngIf="text?.length > 0">
+      <div class="col-sm-1" style="display: flex; align-items: center;">
+        <fa-icon [icon]="arrowIcon" size="4x"></fa-icon>
+      </div>
+      <div class="col-sm-5">
+        <div class="card">
+          <h3 class="card-header">Text</h3>
+          <div class="card-body">
+            <h2 class="card-text"><pre>{{text}}</pre></h2>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 
   <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <app-reference></app-reference>
+          <app-reference [history]="storage"></app-reference>
         </div>
       </div>
     </div>

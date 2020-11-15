@@ -55,5 +55,19 @@
       </div>
     </div>
     </mat-tab>
+    <mat-tab label="History" *ngIf="history?.length > 0">
+      <div class="row pt-3">
+        <div class="p-1 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="row text-center" *ngFor="let key of history">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <h3>{{key.key}}</h3>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <h1 style="font-weight: bold">{{key.value}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>

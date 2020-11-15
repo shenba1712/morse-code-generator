@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Numbers} from '../../domain/numbers.enum';
 import {Characters} from '../../domain/characters.enum';
 import {Alphabets} from '../../domain/alphabets.enum';
 import {SpecialChar} from '../../domain/special-char.enum';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import {ConversionHistory} from '../../domain/history';
 
 @Component({
   selector: 'app-morse-code-text',
   templateUrl: './morse-code-text.component.html',
   styleUrls: ['./morse-code-text.component.scss']
 })
-export class MorseCodeTextComponent {
+export class MorseCodeTextComponent implements OnInit {
 
   morseCode: string;
   text: string;
   arrowIcon = faArrowRight;
+
+  storage: ConversionHistory[];
 
   alphabetKeys = Object.keys(Alphabets);
   numberKeys = Object.keys(Numbers);
@@ -22,7 +25,24 @@ export class MorseCodeTextComponent {
 
   constructor() { }
 
-  generateText(event) {
+  ngOnInit() {
+    const jsonObject = JSON.parse(localStorage.getItem('morsecode-to-text'));
+    if (!!jsonObject) {
+      this.storage = Object.entries(jsonObject).map(entry => {
+        const entryValue = entry[1] as ConversionHistory;
+        return {
+          key: entryValue.key,
+          value: entryValue.value
+        };
+      });
+    }
+
+    if (!this.storage) {
+      this.storage = [];
+    }
+  }
+
+  generateText() {
       this.text = '';
       const morsecode = this.morseCode.trim();
       const codeArray = morsecode.split(' ');
@@ -46,9 +66,23 @@ export class MorseCodeTextComponent {
           }
         }
       });
-    }
+      if (!!this.text && !!this.morseCode) {
+        this.saveToStorage();
+      }
+  }
 
-  isLetter(c) {
+  private saveToStorage() {
+    if (this.storage.length > 10) {
+      this.storage.splice(0, 1);
+    }
+    this.storage.push({
+      key: this.text.toUpperCase(),
+      value: this.morseCode
+    });
+    localStorage.setItem('morsecode-to-text', JSON.stringify(this.storage));
+  }
+
+  private isLetter(c) {
     return c.toLowerCase() !== c.toUpperCase();
   }
 

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Alphabets} from '../../domain/alphabets.enum';
 import {Numbers} from '../../domain/numbers.enum';
 import {SpecialChar} from '../../domain/special-char.enum';
 import {Characters} from '../../domain/characters.enum';
+import {ConversionHistory} from '../../domain/history';
 
 @Component({
   selector: 'app-reference',
@@ -10,6 +11,7 @@ import {Characters} from '../../domain/characters.enum';
   styleUrls: ['./reference.component.scss']
 })
 export class ReferenceComponent {
+  @Input() history: ConversionHistory[];
   alphabetKeys: string[];
   alphabetCode = Alphabets;
   alphabetPagedList: string[];
